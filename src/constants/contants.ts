@@ -1,4 +1,4 @@
-const CONSTANTS = {
+export const CONSTANTS = {
     WEBSITE_NAME: {
         BLINKIT: 1,
         ZEPTO: 2,

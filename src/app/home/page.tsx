@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Category } from "../../interface/categoryInterface";
 import { ProductWithVarinats } from "../../interface/productVariantsInterface";
+import { CONSTANTS } from "@/constants/contants";
 
 export default function Home() {
     const [totalVariants, setTotalVariants] = useState<ProductWithVarinats[]>()
@@ -62,18 +63,20 @@ export default function Home() {
                         <h5 className="capitalize">
                             {item.first_name}
                         </h5>
-                        <div>
-                            <div className="">
-                                <p>Price Range</p>
-                                <div className="flex gap-2 justify-between">
-                                    <p className="shadow rounded-full px-2">
-                                        {item.Variants.sort((a, b) => a.discounted_price - b.discounted_price)[0]?.discounted_price}
-                                    </p>
-                                    <p className="shadow rounded-full px-2">
-                                        {item.Variants.sort((a, b) => b.discounted_price - a.discounted_price)[0]?.discounted_price}
-                                    </p>
+                        <div className="space-y-2">
+                            {item.Variants.sort((a, b) => a.discounted_price - b.discounted_price).map((variant) =>
+                                <div className="flex gap-2 items-center text-sm" key={variant.id} >
+                                    <span>
+                                        {variant.discounted_price}
+                                    </span>
+                                    <span>
+                                        {variant.quantity}
+                                    </span>
+                                    <div>
+                                        <img className="w-6 h-6" src={variant.website_id === CONSTANTS.WEBSITE_NAME.BLINKIT ? "https://blinkit.com/3ad33337325abf91bd78.png" : "https://cdn.zeptonow.com/web-static-assets-prod/artifacts/12.62.1/favicon.png"} alt="" />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -97,10 +100,16 @@ export default function Home() {
                                 </div>
                                 <h5 className="capitalize">{variant.name}</h5>
                                 <div>
-                                    <div className="">
-                                        <p className="shadow rounded-full px-2">
+                                    <div className="flex gap-2 items-center text-sm" >
+                                        <span>
                                             {variant.discounted_price}
-                                        </p>
+                                        </span>
+                                        <span>
+                                            {variant.quantity}
+                                        </span>
+                                        <div>
+                                            <img className="w-6 h-6" src={variant.website_id === CONSTANTS.WEBSITE_NAME.BLINKIT ? "https://blinkit.com/3ad33337325abf91bd78.png" : "https://cdn.zeptonow.com/web-static-assets-prod/artifacts/12.62.1/favicon.png"} alt="" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -108,9 +117,6 @@ export default function Home() {
                     </div>
                 }
             </Drawer>
-
-
-
         </div>
     );
 }
